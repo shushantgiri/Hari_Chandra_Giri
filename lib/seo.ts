@@ -2,7 +2,14 @@
 // real domain — everything else (canonical URLs, OG tags, sitemap, JSON-LD)
 // derives from it.
 
-export const SITE_URL = "https://www.harichandragiri.com";
+// The site's public address. Follows wherever it's deployed: an explicit
+// NEXT_PUBLIC_SITE_URL wins, then Vercel's own domain, then the real domain.
+// Everything that needs an absolute URL — the share thumbnail, canonical
+// links, the sitemap — is built from this, so it must match the live address.
+const vercelDomain = process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (vercelDomain ? `https://${vercelDomain}` : "https://www.harichandragiri.com.np");
 
 export const SITE_NAME = "Hari Chandra Giri";
 
